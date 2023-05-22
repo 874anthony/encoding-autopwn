@@ -27,14 +27,14 @@ class Exploit:
         log.failure('Exiting...')
         sys.exit(1)
 
-    def cleanup(self, runningProcesses: List[Process]):
+    def cleanup(self, runningProcesses: List[Process]) -> None:
         for process in runningProcesses:
             if process.is_alive():
                 process.terminate()
 
         self.removeSshFiles()
 
-    def makeRequest(self):
+    def makeRequest(self) -> None:
         PhpFilterCommand = ['python3', 
                             PHP_FILTER_CHAIN_PATH, 
                             '--chain', 
@@ -77,7 +77,7 @@ class Exploit:
         if os.path.isfile('svc.pub'):
             os.remove('svc.pub')
 
-    def run(self):
+    def run(self) -> None:
         signal.signal(signal.SIGINT, self.signal_handler)       
 
         isPhpFilterChainScript = os.path.isfile(PHP_FILTER_CHAIN_PATH)
